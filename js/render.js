@@ -3,6 +3,23 @@
 // this file only knows how to draw whatever list it's handed.
 
 /**
+ * Shows a friendly message in whichever content container is present on the
+ * page, used when the opportunity data itself fails to load or parse (so a
+ * visitor sees something instead of a silently blank page).
+ */
+function showLoadError() {
+  const container = document.querySelector(".opportunity-grid, .archive-groups, .opportunity-detail");
+  if (!container) {
+    return;
+  }
+  container.innerHTML = "";
+  const message = document.createElement("p");
+  message.className = "opportunity-empty-state";
+  message.textContent = "We couldn't load opportunities right now. Please try refreshing the page in a moment.";
+  container.appendChild(message);
+}
+
+/**
  * Turns a location object into a short display string,
  * e.g. "Oakland, CA (Hybrid)", "Remote", or "Onsite".
  */
@@ -111,7 +128,13 @@ function renderOpportunities(opportunities) {
   }
 
   opportunities.forEach((opportunity) => {
-    grid.appendChild(createOpportunityCard(opportunity));
+    // One malformed entry (e.g. a hand-edit missing a required field) shouldn't
+    // take every other opportunity down with it — skip just that card.
+    try {
+      grid.appendChild(createOpportunityCard(opportunity));
+    } catch (error) {
+      console.error("Skipped a malformed opportunity:", opportunity, error);
+    }
   });
 }
 
@@ -194,7 +217,12 @@ function renderArchiveGroups(groups) {
     const grid = document.createElement("div");
     grid.className = "opportunity-grid";
     list.forEach((opportunity) => {
-      grid.appendChild(createOpportunityCard(opportunity));
+      // Same per-item isolation as the home page's grid — see renderOpportunities().
+      try {
+        grid.appendChild(createOpportunityCard(opportunity));
+      } catch (error) {
+        console.error("Skipped a malformed opportunity:", opportunity, error);
+      }
     });
     groupEl.appendChild(grid);
 

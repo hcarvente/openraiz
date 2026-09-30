@@ -187,3 +187,19 @@ This file logs each build instruction given to Claude and a short note on what w
 - All the icon/root/abstract/non-root concept exploration happened in the same external Design-canvas mockup used throughout this project — nothing in that canvas is part of the delivered site.
 
 **Next milestone:** M10 — deploy to GitHub Pages (create the repo's Pages config, resolve the `/docs` naming collision, verify the live JSON fetch, and once live, consider recapturing the OG image with the real Fraunces font).
+
+---
+
+## 2026-09-30 — Final v1 review: error handling, stale comment, image size
+
+**Prompt series:** "Look at all the files, do a final check of as many possible edge cases for v1, and anything that could easily break the code." Reviewed every file; found four issues, ranked them by severity in a table on request, then: "Fix 1 & 2, fix the leftover comment, and pick the most optimal file size for the about page photo."
+
+**What was found and fixed:**
+- **No error handling if the data file fails to load or parse** — `main.js` now wraps `loadOpportunities()` in a try/catch; on failure it calls a new `showLoadError()` (in `render.js`) that shows a friendly message ("We couldn't load opportunities right now...") in whichever content container is present, instead of leaving the page silently blank. Also wrapped the detail page's `renderOpportunityDetail()` call, so a malformed entry for that specific `?id=` shows the same message instead of crashing.
+- **One malformed entry could take down every other listing** — `renderOpportunities()` and `renderArchiveGroups()`'s per-item loops now wrap each `createOpportunityCard()` call in its own try/catch, logging and skipping just the bad entry instead of aborting the whole render.
+- **Verified both fixes live**: temporarily broke the whole JSON file (confirmed the friendly error shows on all three data-driven pages), then temporarily removed one entry's `type` field (confirmed the other 7 active listings still rendered, with the bad one silently skipped and logged to console) — restored the real data byte-for-byte after each test.
+- Fixed a stale CSS comment that still said "feather mark" post-logo-swap.
+- Replaced `assets/OpenRaiz_About.png` (1.69MB) with `assets/OpenRaiz_About.jpg` (149KB, quality-82 JPEG — visually identical for a photo like this), updated both references (`index.html`'s `<img>`, `styles.css`'s background-image), and removed the old PNG from the repo.
+- Noted but left as-is (lower severity, not fixed this pass): a malformed `deadline` string fails silently (never expires) rather than erroring, and nothing validates `id` uniqueness across entries.
+
+**Next milestone:** M10 — deploy to GitHub Pages.

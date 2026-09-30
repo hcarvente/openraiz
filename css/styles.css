@@ -29,7 +29,7 @@ body {
    and header/footer text on top of it keep full contrast regardless of the photo underneath. */
 .landing-background {
   background-image: linear-gradient(rgba(250, 247, 242, 0.6), rgba(250, 247, 242, 0.6)),
-    url("../assets/OpenRaiz_About.png");
+    url("../assets/OpenRaiz_About.jpg");
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -70,7 +70,7 @@ body {
   background: linear-gradient(180deg, #FDFBF7 0%, var(--color-bg) 100%);
 }
 
-/* Logo lockup: feather mark + wordmark, side by side */
+/* Logo lockup: sprout mark + wordmark, side by side */
 .logo {
   display: flex;
   align-items: center;

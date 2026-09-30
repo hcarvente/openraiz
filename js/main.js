@@ -2,7 +2,16 @@
 // section is present (home page's grid, an archive page, or a detail page).
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const opportunities = await loadOpportunities();
+  let opportunities;
+  try {
+    opportunities = await loadOpportunities();
+  } catch (error) {
+    // The fetch failed, or data/opportunities.json isn't valid JSON — show a
+    // visible message instead of leaving the page silently blank.
+    console.error("Failed to load opportunities:", error);
+    showLoadError();
+    return;
+  }
 
   if (document.querySelector(".opportunity-grid")) {
     // Home page: only the active subset is ever handed to the filters,
@@ -18,6 +27,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
     const opportunity = opportunities.find((item) => item.id === id);
-    renderOpportunityDetail(opportunity);
+    try {
+      renderOpportunityDetail(opportunity);
+    } catch (error) {
+      // A malformed entry for this specific id shouldn't leave a blank page.
+      console.error("Failed to render opportunity detail:", error);
+      showLoadError();
+    }
   }
 });
