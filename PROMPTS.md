@@ -56,3 +56,18 @@ This file logs each build instruction given to Claude and a short note on what w
 - Verified end-to-end: started a local server, confirmed `index.html` and the JSON both serve correctly, and visually confirmed all 6 cards render in the browser.
 
 **Next milestone:** M4 — opportunity detail view (`opportunity.html`, reads `?id=`).
+
+---
+
+## 2026-09-29 — M4: Opportunity detail view
+
+**Prompt:** Build M4.
+
+**What was built:**
+- `opportunity.html`: same header/footer as `index.html`, with an empty `.opportunity-detail` section that `js/render.js` fills in based on the URL's `?id=`.
+- `js/render.js`: added `renderOpportunityDetail()` (title, org/location, description, a fact list for compensation/deadline/lived-experience relevance that skips any missing field, and an Apply link/button), plus `createApplyLink()` (external link in a new tab for `url` applyMethods, `mailto:` for `email` ones) and `addDetailFact()` (drops a fact row entirely if the value is falsy, so missing optional fields don't render "undefined").
+- `js/main.js`: now branches on which section is present on the page — renders the grid on the home page, or looks up the opportunity by `?id=` and renders its detail on the detail page.
+- `css/styles.css`: added detail-page layout (centered column, title, fact list, apply button, not-found message styling).
+- Verified: a `url`-applyMethod listing, an `email`-applyMethod listing, an invalid `?id=`, and no `?id=` at all — all four behaved as expected (correct apply link type; friendly not-found message for the invalid/missing cases).
+
+**Next milestone:** M5 — filter/search controls on the home page (type, remote/hybrid/onsite, paid/unpaid, keyword).

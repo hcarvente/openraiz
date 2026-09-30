@@ -103,3 +103,87 @@ function renderOpportunities(opportunities) {
     grid.appendChild(createOpportunityCard(opportunity));
   });
 }
+
+/**
+ * Adds one label/value pair to a <dl>, skipping it entirely if there's no value
+ * (so an opportunity missing an optional field, like compensation, just omits that row).
+ */
+function addDetailFact(list, label, value) {
+  if (!value) {
+    return;
+  }
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const definition = document.createElement("dd");
+  definition.textContent = value;
+  list.appendChild(term);
+  list.appendChild(definition);
+}
+
+/**
+ * Builds the "Apply" link: a mailto: for email applyMethods, or an
+ * external link (new tab) for url applyMethods.
+ */
+function createApplyLink(opportunity) {
+  const link = document.createElement("a");
+  link.className = "opportunity-apply-button";
+  if (opportunity.applyMethod.type === "email") {
+    link.href = `mailto:${opportunity.applyMethod.value}`;
+    link.textContent = "Apply via email";
+  } else {
+    link.href = opportunity.applyMethod.value;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = `Apply on ${opportunity.organization}'s site`;
+  }
+  return link;
+}
+
+/**
+ * Fills the .opportunity-detail section with one opportunity's full detail,
+ * or a friendly not-found message if no matching opportunity was passed in.
+ */
+function renderOpportunityDetail(opportunity) {
+  const container = document.querySelector(".opportunity-detail");
+  if (!container) {
+    return;
+  }
+  container.innerHTML = "";
+
+  if (!opportunity) {
+    const message = document.createElement("p");
+    message.className = "opportunity-detail-not-found";
+    message.textContent = "We couldn't find that opportunity. It may have been removed, or the link may be incorrect.";
+    container.appendChild(message);
+    return;
+  }
+
+  const badge = document.createElement("span");
+  badge.className = "opportunity-type";
+  badge.textContent = opportunity.type.toUpperCase();
+  container.appendChild(badge);
+
+  const title = document.createElement("h1");
+  title.className = "opportunity-detail-title";
+  title.textContent = opportunity.title;
+  container.appendChild(title);
+
+  const org = document.createElement("p");
+  org.className = "opportunity-org";
+  org.textContent = `${opportunity.organization} · ${formatLocation(opportunity.location)}`;
+  container.appendChild(org);
+
+  const description = document.createElement("p");
+  description.className = "opportunity-detail-description";
+  description.textContent = opportunity.description;
+  container.appendChild(description);
+
+  const facts = document.createElement("dl");
+  facts.className = "opportunity-detail-facts";
+  addDetailFact(facts, "Compensation", opportunity.compensation);
+  addDetailFact(facts, "Deadline", formatDeadline(opportunity.deadline));
+  addDetailFact(facts, "Lived experience", formatRelevance(opportunity.livedExperienceRelevance));
+  container.appendChild(facts);
+
+  container.appendChild(createApplyLink(opportunity));
+}
