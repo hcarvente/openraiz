@@ -39,3 +39,20 @@ This file logs each build instruction given to Claude and a short note on what w
 - Additional sample-data edge cases identified but deliberately not yet added (revisit once M3 renders something): an explicit `status: "archived"` entry, an entry with a field truly absent (not just `null`), a long title/description for overflow testing, and two entries from the same organization.
 
 **Next milestone:** M3 — render opportunities from `data/opportunities.json` onto `index.html` via `js/data.js` and `js/render.js`.
+
+---
+
+## 2026-09-29 — M3: Render opportunities
+
+**Prompt:** Build M3.
+
+**What was built:**
+- `js/data.js`: `loadOpportunities()` fetches and parses `data/opportunities.json`.
+- `js/render.js`: formats each opportunity's location, deadline, and lived-experience-relevance text, builds a card (wrapped in a link to `opportunity.html?id=...`, built next at M4), and `renderOpportunities()` inserts all cards into `.opportunity-grid`.
+- `js/main.js`: on `DOMContentLoaded`, loads the data and renders it — no filtering/archiving yet, so all 6 sample entries show, including the filled and past-deadline ones.
+- `index.html`: added the three deferred script tags in dependency order.
+- `css/styles.css`: added card styling (type badge, title, org/location line, description, deadline + relevance footer row).
+- `README.md`: documented that `fetch()` requires a local server (`python3 -m http.server`), not opening the file directly.
+- Verified end-to-end: started a local server, confirmed `index.html` and the JSON both serve correctly, and visually confirmed all 6 cards render in the browser.
+
+**Next milestone:** M4 — opportunity detail view (`opportunity.html`, reads `?id=`).

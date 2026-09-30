@@ -136,6 +136,71 @@ body {
   }
 }
 
+/* Opportunity card link: makes the whole card clickable while keeping normal text color */
+.opportunity-card-link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+/* Opportunity card: one listing's summary, rendered by js/render.js */
+.opportunity-card {
+  background: #FFFFFF;
+  border: 1px solid #E5DED2;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+}
+
+.opportunity-type {
+  align-self: flex-start;
+  background: #E4EFE8;
+  color: var(--color-primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.opportunity-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.opportunity-org {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.opportunity-description {
+  font-size: 0.8rem;
+  color: var(--color-text);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.opportunity-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  padding-top: 0.4rem;
+  border-top: 1px solid #F1ECE1;
+}
+
+.opportunity-relevance {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 /* Footer: brand/attribution line shown on every page */
 .site-footer {
   padding: 1.5rem 1.25rem;

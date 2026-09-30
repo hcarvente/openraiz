@@ -50,5 +50,11 @@
   <footer class="site-footer">
     <p>OpenRaíz — Incubated by Alianza for Opportunity</p>
   </footer>
+
+  <!-- Scripts load in dependency order: data.js and render.js define
+       functions that main.js calls once the page has loaded -->
+  <script src="js/data.js" defer></script>
+  <script src="js/render.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

@@ -4,4 +4,15 @@ A lightweight job board for young adults whose lived experience with systems —
 
 Incubated by Alianza for Opportunity, developed as its own standalone brand.
 
-*Setup, local-run, and deploy instructions will be added as those pieces are built.*
+## Running locally
+
+The home page loads its data with `fetch("data/opportunities.json")`, which browsers block when a page is opened directly from disk (`file://...`). Serve the folder over a local server instead:
+
+```
+cd path/to/openraiz
+python3 -m http.server
+```
+
+Then open `http://localhost:8000` in your browser.
+
+*Deploy instructions will be added at M10.*
