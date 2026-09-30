@@ -203,3 +203,17 @@ This file logs each build instruction given to Claude and a short note on what w
 - Noted but left as-is (lower severity, not fixed this pass): a malformed `deadline` string fails silently (never expires) rather than erroring, and nothing validates `id` uniqueness across entries.
 
 **Next milestone:** M10 — deploy to GitHub Pages.
+
+---
+
+## 2026-09-30 — M10: Deploy to GitHub Pages (closed out)
+
+**Prompt:** Formally close out M10, and expand the README with what v1 actually does versus what's deliberately deferred to later versions.
+
+**What was verified/built:**
+- GitHub Pages was already enabled (done independently, outside this logged workflow) at `https://hcarvente.github.io/openraiz/`, serving from `main` / root — no `/docs` naming collision, since Pages isn't configured to use the "docs folder" build source; `docs/ADDING-AN-OPPORTUNITY.md` is just a regular file at that path.
+- Verified every real page and asset resolves on the live URL (`index.html`, `opportunities.html`, `opportunity.html?id=...`, `archive.html`, all `js/*` and `css/*` files, all `assets/*` files, `data/opportunities.json`) — all 200s, matching the plan's M10 verification step of checking the actual deployed paths rather than only localhost.
+- Fetched the live `data/opportunities.json` and confirmed it's valid, has all 10 entries, and matches the restored local data exactly — no leftover corruption from the prior session's intentional-breakage testing.
+- `README.md` rewrote with: the live site link; a "what this version does" section (About/Opportunities/Detail/Archive pages, the one-JSON-file data model, no backend/no self-submission yet); a "what's deliberately not built yet" section (employer self-submission, admin UI, real backend, job-seeker accounts, richer filters/types, multi-language, formal accessibility audit, org profiles, analytics, AI matching); and a "Deploying" section explaining the Pages config and that push-to-`main` is the entire deploy step.
+
+**Status:** All 11 planned milestones (M0–M10) are now complete. v1 is live.
