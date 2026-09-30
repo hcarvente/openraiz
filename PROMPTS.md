@@ -119,3 +119,40 @@ This file logs each build instruction given to Claude and a short note on what w
 - `docs/ADDING-AN-OPPORTUNITY.md`: step-by-step instructions for adding a listing (copy template, fill fields, validate with `python3 -m json.tool`, commit), a filled-in field template matching the current schema (including `isPaid`), field-by-field guidance — notably on wording `livedExperienceRelevance` and `description` without deficit framing or system-involvement labels — and a short section on what to do when a listing gets filled, expires, or needs pulling for another reason.
 
 **Next milestone:** M8 — About page (`about.html`) + Alianza relationship framing ("Incubated by Alianza for Opportunity," not "Alianza's OpenRaiz").
+
+---
+
+## 2026-09-29 — About page becomes the landing page
+
+**Prompt series:** Build the About page; decide (given it's a real restructuring, not just a new page) to make it the landing page instead of a secondary tab, with a "Browse opportunities" CTA into the listings.
+
+**What was built:**
+- Renamed the listings page from `index.html` to `opportunities.html`; the new `index.html` is now the About/landing page (mission copy, "you belong here because of what you bring" framing, "Incubated by Alianza for Opportunity — OpenRaíz is its own standalone project" line, and a "Browse opportunities" CTA into `opportunities.html`). Nav repointed across all four pages (`index.html`, `opportunities.html`, `opportunity.html`, `archive.html`) and reordered to About / Opportunities / Archive. `README.md` updated to describe the new page roles.
+- Fixed the mission paragraphs from centering every line (an `align-items: center` flex side-effect that shrank each `<p>` to its own content width) to reading left-to-right at full width, and wrapped the mission text in a framed card matching the existing `.opportunity-card` visual language (white background, border, radius, soft shadow) so it reads as a designed panel instead of floating on blank page background.
+
+**Footnote:** Also fixed the opportunities page's search field to stretch and fill the filter row instead of clustering against the type/location/pay dropdowns (a `flex: 1 1 12rem` addition to `css/styles.css` and a new `filter-field-search` class) — unrelated to the About-page work above, small enough not to warrant its own entry.
+
+---
+
+## 2026-09-29 — Landing page background photo
+
+**Prompt:** Add a real photo (`assets/OpenRaiz_About.png` — a young adult viewed from behind, city skyline at sunset; not identifiable, so no consent/privacy concern) as a faded background on the About/landing page.
+
+**What was built:**
+- `.landing-background` class on the `index.html` `<body>`: the photo as a full-page background, tinted with a color overlay matching the site's cream background (`--color-bg`) so it reads as faded and text on top keeps full contrast.
+- Opacity tuned from an initial 88% tint down to 60% after visual review, so the photo is more visible.
+
+**Next up:** a mobile-specific problem with this same background surfaced immediately after — see the next entry.
+
+---
+
+## 2026-09-29 — Mobile-specific hero image fix
+
+**Prompt:** Fix how the landing page's background photo displays on a phone-width screen, keeping the person in frame as the page shrinks.
+
+**What was built:**
+- Diagnosed the problem: `background-size: cover` on a narrow, tall phone viewport crops a wide landscape photo down to an unflattering vertical sliver, missing the subject — landing squarely on the tree line/rooftops between the person and the skyline. Desktop wasn't affected, since its aspect ratio is close enough to the photo's that `cover` only trims a little off each side.
+- Compared two fixes visually first, using two Design-canvas mockups built with the real uploaded photo (full-page-background crop vs. a fixed-height hero band) before choosing.
+- Implemented the fixed-height hero band approach, mobile-only: below a 699px breakpoint, the whole-page background is replaced with a 220px-tall `<img>` band using `object-fit: cover` and a tuned `object-position` (`28% 42%`) that keeps the person framed consistently as the viewport narrows. Desktop keeps the original whole-page background unchanged.
+
+**Next milestone:** M9 — polish pass (accessibility, favicon, responsive check).

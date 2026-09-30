@@ -24,6 +24,42 @@ body {
   line-height: 1.5;
 }
 
+/* Landing-page-only background photo: a solid color-tinted overlay (matching --color-bg,
+   #FAF7F2) is layered over the image so it reads as faded, and so the white .about-card
+   and header/footer text on top of it keep full contrast regardless of the photo underneath. */
+.landing-background {
+  background-image: linear-gradient(rgba(250, 247, 242, 0.6), rgba(250, 247, 242, 0.6)),
+    url("../assets/OpenRaiz_About.png");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+/* Hidden on desktop: the whole-page background above already frames the photo well at
+   desktop's wider aspect ratio, so no swap is needed there. */
+.about-hero-image {
+  display: none;
+}
+
+/* Below the mobile breakpoint, the whole-page background crops badly (a narrow, tall
+   screen is a very different aspect ratio than this wide photo), so swap it out for a
+   fixed-height band instead: object-fit keeps the photo's aspect ratio intact while
+   object-position anchors the crop on the person so they stay centered in view at any
+   phone width, rather than drifting as the viewport narrows. */
+@media (max-width: 699px) {
+  .landing-background {
+    background-image: none;
+  }
+
+  .about-hero-image {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: 28% 42%;
+  }
+}
+
 /* Header bar: everything centered in a column (logo lockup, pill nav, accent underline) */
 .site-header {
   display: flex;
@@ -141,8 +177,13 @@ body {
   color: var(--color-text);
 }
 
+/* Search field grows to fill the leftover row width instead of clustering with the other pills */
+.filter-field-search {
+  flex: 1 1 12rem;
+}
+
 #filter-keyword {
-  min-width: 12rem;
+  width: 100%;
 }
 
 /* Result count: announced to screen readers via aria-live on the element itself */
@@ -328,6 +369,70 @@ body {
   color: var(--color-primary);
   margin: 0;
   padding: 0 1.25rem;
+}
+
+/* About page: centered mission copy + a CTA into the opportunities list */
+/* Outer wrapper: positions the card on the page (centered, with breathing room above/below) */
+.about {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The framed card itself: same visual language as .opportunity-card (white background,
+   border, radius, soft shadow) so the mission text reads as a designed panel rather
+   than floating directly on the page background. Paragraphs get width: 100% so they
+   use the card's full width and read left-to-right normally, instead of shrinking to
+   their own content width and centering every line. */
+.about-card {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #E5DED2;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 16px rgba(43, 43, 43, 0.06);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.about-card h1 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin: 0;
+  text-align: center;
+}
+
+.about p {
+  width: 100%;
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.about-cta {
+  margin-top: 0.5rem;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+}
+
+.about-incubated {
+  margin-top: 1rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 /* Footer: brand/attribution line shown on every page */

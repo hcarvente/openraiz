@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic document metadata -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenRaíz — Opportunities</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Site header: centered logo lockup (feather mark + wordmark) with a centered pill nav below it, shared across all pages -->
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <!-- Feather mark: represents lightness/possibility alongside the "rooted" wordmark -->
+      <svg class="logo-mark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+        <line x1="16" y1="8" x2="2" y2="22"></line>
+        <line x1="17.5" y1="15" x2="9" y2="15"></line>
+      </svg>
+      OpenRaíz
+    </a>
+    <!-- About (index.html) is now the landing page, so "Opportunities" points to this file, not index.html -->
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">About</a>
+      <a href="opportunities.html" class="is-active">Opportunities</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+    <!-- Small gradient accent underline beneath the nav -->
+    <div class="header-accent" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <!-- Hero: mission statement, centered to match the header above, always visible above the listings -->
+    <section class="hero">
+      <h1>Opportunities rooted in lived experience.</h1>
+      <p>Jobs, fellowships, internships, and volunteer roles from organizations that value what you bring.</p>
+    </section>
+
+    <!-- Filter controls: each has a real <label> for accessibility; js/filter.js reads these values on every change -->
+    <section class="filters" aria-label="Filter opportunities">
+      <div class="filter-field filter-field-search">
+        <label for="filter-keyword">Search</label>
+        <input type="search" id="filter-keyword" placeholder="Search opportunities…" />
+      </div>
+      <div class="filter-field">
+        <label for="filter-type">Type</label>
+        <select id="filter-type">
+          <option value="all">All types</option>
+          <option value="job">Job</option>
+          <option value="fellowship">Fellowship</option>
+          <option value="internship">Internship</option>
+          <option value="volunteer">Volunteer</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="filter-location">Location</label>
+        <select id="filter-location">
+          <option value="all">All locations</option>
+          <option value="remote">Remote</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="onsite">Onsite</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="filter-paid">Pay</label>
+        <select id="filter-paid">
+          <option value="all">Paid &amp; unpaid</option>
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+        </select>
+      </div>
+      <!-- aria-live announces the result count to screen readers whenever a filter changes it -->
+      <p class="filter-result-count" aria-live="polite"></p>
+    </section>
+
+    <!-- Opportunity cards are generated dynamically from data/opportunities.json, filtered by js/filter.js -->
+    <section class="opportunity-grid" aria-label="Open opportunities">
+      <!-- Opportunity cards render here -->
+    </section>
+  </main>
+
+  <!-- Site footer: brand/attribution line, shared across all pages -->
+  <footer class="site-footer">
+    <p>OpenRaíz — Incubated by Alianza for Opportunity</p>
+  </footer>
+
+  <!-- Scripts load in dependency order: data.js and render.js define
+       functions archive.js and filter.js use, and main.js kicks everything off -->
+  <script src="js/data.js" defer></script>
+  <script src="js/render.js" defer></script>
+  <script src="js/archive.js" defer></script>
+  <script src="js/filter.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

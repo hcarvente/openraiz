@@ -7,11 +7,10 @@
   <title>OpenRaíz</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-  <!-- Site header: centered logo lockup (feather mark + wordmark) with a centered pill nav below it, shared across all pages -->
+<body class="landing-background">
+  <!-- Site header: same centered logo lockup + pill nav as every page; "About" is active since this page IS the About/landing page -->
   <header class="site-header">
     <a class="logo" href="index.html">
-      <!-- Feather mark: represents lightness/possibility alongside the "rooted" wordmark -->
       <svg class="logo-mark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
         <line x1="16" y1="8" x2="2" y2="22"></line>
@@ -20,75 +19,48 @@
       OpenRaíz
     </a>
     <nav class="site-nav" aria-label="Primary">
-      <a href="index.html" class="is-active">Opportunities</a>
+      <a href="index.html" class="is-active">About</a>
+      <a href="opportunities.html">Opportunities</a>
       <a href="archive.html">Archive</a>
-      <a href="about.html">About</a>
     </nav>
-    <!-- Small gradient accent underline beneath the nav -->
     <div class="header-accent" aria-hidden="true"></div>
   </header>
 
+  <!-- Mobile-only hero image: below the mobile breakpoint, css/styles.css hides the
+       whole-page background (it crops badly on narrow/tall screens) and shows this
+       fixed-height band instead, with object-position tuned to keep the person in frame -->
+  <img class="about-hero-image" src="assets/OpenRaiz_About.png" alt="" />
+
   <main>
-    <!-- Hero: mission statement, centered to match the header above, always visible above the listings -->
-    <section class="hero">
-      <h1>Opportunities rooted in lived experience.</h1>
-      <p>Jobs, fellowships, internships, and volunteer roles from organizations that value what you bring.</p>
-    </section>
-
-    <!-- Filter controls: each has a real <label> for accessibility; js/filter.js reads these values on every change -->
-    <section class="filters" aria-label="Filter opportunities">
-      <div class="filter-field">
-        <label for="filter-keyword">Search</label>
-        <input type="search" id="filter-keyword" placeholder="Search opportunities…" />
+    <!-- About/mission: the landing experience — states the mission, then hands off to the opportunities list -->
+    <section class="about">
+      <!-- The mission text sits inside a framed card (same visual language as the opportunity cards)
+           so it reads as a designed panel instead of floating on blank page background -->
+      <div class="about-card">
+        <h1>You belong here because of what you bring.</h1>
+        <p>
+          OpenRaíz connects young adults whose lived experience with systems — justice, immigration,
+          foster care, housing instability, and others — has too often created barriers to opportunity,
+          with organizations that recognize that experience as expertise, not a deficit.
+        </p>
+        <p>
+          Government agencies, nonprofits, philanthropy, and other mission-aligned employers list jobs,
+          fellowships, internships, and volunteer roles here — opportunities that specifically welcome,
+          prefer, or require the perspective you carry.
+        </p>
+        <p>
+          You don't have to disclose anything about your history to browse. Every listing tells you how
+          it relates to lived experience; nothing here asks you to prove yours.
+        </p>
+        <a class="about-cta" href="opportunities.html">Browse opportunities</a>
+        <p class="about-incubated">Incubated by Alianza for Opportunity — OpenRaíz is its own standalone project.</p>
       </div>
-      <div class="filter-field">
-        <label for="filter-type">Type</label>
-        <select id="filter-type">
-          <option value="all">All types</option>
-          <option value="job">Job</option>
-          <option value="fellowship">Fellowship</option>
-          <option value="internship">Internship</option>
-          <option value="volunteer">Volunteer</option>
-        </select>
-      </div>
-      <div class="filter-field">
-        <label for="filter-location">Location</label>
-        <select id="filter-location">
-          <option value="all">All locations</option>
-          <option value="remote">Remote</option>
-          <option value="hybrid">Hybrid</option>
-          <option value="onsite">Onsite</option>
-        </select>
-      </div>
-      <div class="filter-field">
-        <label for="filter-paid">Pay</label>
-        <select id="filter-paid">
-          <option value="all">Paid &amp; unpaid</option>
-          <option value="paid">Paid</option>
-          <option value="unpaid">Unpaid</option>
-        </select>
-      </div>
-      <!-- aria-live announces the result count to screen readers whenever a filter changes it -->
-      <p class="filter-result-count" aria-live="polite"></p>
-    </section>
-
-    <!-- Opportunity cards are generated dynamically from data/opportunities.json, filtered by js/filter.js -->
-    <section class="opportunity-grid" aria-label="Open opportunities">
-      <!-- Opportunity cards render here -->
     </section>
   </main>
 
-  <!-- Site footer: brand/attribution line, shared across all pages -->
+  <!-- Site footer: same as every page -->
   <footer class="site-footer">
     <p>OpenRaíz — Incubated by Alianza for Opportunity</p>
   </footer>
-
-  <!-- Scripts load in dependency order: data.js and render.js define
-       functions archive.js and filter.js use, and main.js kicks everything off -->
-  <script src="js/data.js" defer></script>
-  <script src="js/render.js" defer></script>
-  <script src="js/archive.js" defer></script>
-  <script src="js/filter.js" defer></script>
-  <script src="js/main.js" defer></script>
 </body>
 </html>
