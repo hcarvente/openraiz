@@ -71,3 +71,21 @@ This file logs each build instruction given to Claude and a short note on what w
 - Verified: a `url`-applyMethod listing, an `email`-applyMethod listing, an invalid `?id=`, and no `?id=` at all — all four behaved as expected (correct apply link type; friendly not-found message for the invalid/missing cases).
 
 **Next milestone:** M5 — filter/search controls on the home page (type, remote/hybrid/onsite, paid/unpaid, keyword).
+
+---
+
+## 2026-09-29 — M5: Filter/search controls
+
+**Prompt series:** Discuss how to filter by paid/unpaid given `compensation` is free text; decide to add a real `isPaid` boolean field (backfilled onto all 6 sample entries) instead of parsing the string; build M5.
+
+**What was built:**
+- `data/opportunities.json`: added `isPaid: true/false` to every entry, so paid/unpaid filtering is exact instead of guessed from `compensation` text.
+- `index.html`: filter markup in `.filters` — labeled keyword search, type/location/paid `<select>`s, and an `aria-live` result-count element.
+- `js/filter.js` (new): `matchesType`/`matchesLocation`/`matchesPaid`/`matchesKeyword` check one dimension each; `getFilteredOpportunities()` reads all four control values straight from the DOM and combines the checks with AND logic; `initializeFilters()` wires change/input listeners on each control and does the first render; `updateResultCount()` keeps the aria-live text in sync.
+- `js/render.js`: `renderOpportunities()` now shows a "No opportunities match your filters." message instead of a blank grid when a filter combination matches nothing.
+- `js/main.js`: home-page path now calls `initializeFilters()` instead of rendering directly.
+- `css/styles.css`: filter-bar layout, field/label styling, result-count and empty-state styling.
+- Verified: type + pay + keyword filters and their combinations, the empty-result state, and the result count all behaved correctly once a genuinely reloaded (not just refocused) browser tab was checked — an earlier "filters aren't working" report turned out to be a stale tab from before M5 existed, not a code issue.
+- Noted for M6: this milestone filters over the full raw list, including the already-filled and past-deadline sample entries. M6 needs to feed filter.js an "active only" subset rather than the raw list, or a filled/expired listing could resurface via a matching keyword search.
+
+**Next milestone:** M6 — deadline-based auto-archive (`js/archive.js`), splitting the list into active vs. archived and building `archive.html`.

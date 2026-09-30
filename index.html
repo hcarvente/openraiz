@@ -35,14 +35,46 @@
       <p>Jobs, fellowships, internships, and volunteer roles from organizations that value what you bring.</p>
     </section>
 
-    <!-- Filter controls (type, location, paid/unpaid, keyword search) get built in M5 -->
+    <!-- Filter controls: each has a real <label> for accessibility; js/filter.js reads these values on every change -->
     <section class="filters" aria-label="Filter opportunities">
-      <!-- Filter controls arrive in M5 -->
+      <div class="filter-field">
+        <label for="filter-keyword">Search</label>
+        <input type="search" id="filter-keyword" placeholder="Search opportunities…" />
+      </div>
+      <div class="filter-field">
+        <label for="filter-type">Type</label>
+        <select id="filter-type">
+          <option value="all">All types</option>
+          <option value="job">Job</option>
+          <option value="fellowship">Fellowship</option>
+          <option value="internship">Internship</option>
+          <option value="volunteer">Volunteer</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="filter-location">Location</label>
+        <select id="filter-location">
+          <option value="all">All locations</option>
+          <option value="remote">Remote</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="onsite">Onsite</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="filter-paid">Pay</label>
+        <select id="filter-paid">
+          <option value="all">Paid &amp; unpaid</option>
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+        </select>
+      </div>
+      <!-- aria-live announces the result count to screen readers whenever a filter changes it -->
+      <p class="filter-result-count" aria-live="polite"></p>
     </section>
 
-    <!-- Opportunity cards are generated dynamically from data/opportunities.json in M3 -->
+    <!-- Opportunity cards are generated dynamically from data/opportunities.json, filtered by js/filter.js -->
     <section class="opportunity-grid" aria-label="Open opportunities">
-      <!-- Opportunity cards render here in M3 -->
+      <!-- Opportunity cards render here -->
     </section>
   </main>
 
@@ -52,9 +84,10 @@
   </footer>
 
   <!-- Scripts load in dependency order: data.js and render.js define
-       functions that main.js calls once the page has loaded -->
+       functions filter.js uses, and main.js kicks everything off -->
   <script src="js/data.js" defer></script>
   <script src="js/render.js" defer></script>
+  <script src="js/filter.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

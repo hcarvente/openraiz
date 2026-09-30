@@ -109,8 +109,56 @@ body {
   max-width: 34rem;
 }
 
+/* Filter bar: stacks on mobile, spreads into a row at tablet width and up */
 .filters {
-  padding: 0 1.25rem;
+  padding: 0 1.25rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.filter-field label {
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.filter-field input,
+.filter-field select {
+  border: 1px solid #D8D0C0;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  background: #FFFFFF;
+  color: var(--color-text);
+}
+
+#filter-keyword {
+  min-width: 12rem;
+}
+
+/* Result count: announced to screen readers via aria-live on the element itself */
+.filter-result-count {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+/* Empty state: shown by render.js when a filter combination matches nothing */
+.opportunity-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  padding: 2rem 0;
 }
 
 /* Opportunity cards render into this grid; mobile-first single column,

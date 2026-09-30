@@ -92,6 +92,8 @@ function createOpportunityCard(opportunity) {
 
 /**
  * Clears and re-renders the opportunity grid from a list of opportunities.
+ * Shows a friendly empty-state message instead of a blank grid when the list is empty
+ * (e.g. a filter combination that matches nothing).
  */
 function renderOpportunities(opportunities) {
   const grid = document.querySelector(".opportunity-grid");
@@ -99,6 +101,15 @@ function renderOpportunities(opportunities) {
     return;
   }
   grid.innerHTML = "";
+
+  if (opportunities.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "opportunity-empty-state";
+    empty.textContent = "No opportunities match your filters.";
+    grid.appendChild(empty);
+    return;
+  }
+
   opportunities.forEach((opportunity) => {
     grid.appendChild(createOpportunityCard(opportunity));
   });

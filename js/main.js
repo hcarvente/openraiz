@@ -4,9 +4,9 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (document.querySelector(".opportunity-grid")) {
-    // Home page: render every opportunity as a card.
+    // Home page: load once, then let filter.js render and re-render as filters change.
     const opportunities = await loadOpportunities();
-    renderOpportunities(opportunities);
+    initializeFilters(opportunities);
   } else if (document.querySelector(".opportunity-detail")) {
     // Detail page: find the one opportunity named by ?id= in the URL.
     const params = new URLSearchParams(window.location.search);
