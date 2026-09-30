@@ -308,6 +308,28 @@ body {
   font-size: 0.95rem;
 }
 
+/* Archive page: one labeled group per reason, each with its own card grid */
+.archive-groups {
+  padding: 2rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.archive-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.archive-group-heading {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  margin: 0;
+  padding: 0 1.25rem;
+}
+
 /* Footer: brand/attribution line shown on every page */
 .site-footer {
   padding: 1.5rem 1.25rem;

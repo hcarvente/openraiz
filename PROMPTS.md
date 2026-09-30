@@ -89,3 +89,22 @@ This file logs each build instruction given to Claude and a short note on what w
 - Noted for M6: this milestone filters over the full raw list, including the already-filled and past-deadline sample entries. M6 needs to feed filter.js an "active only" subset rather than the raw list, or a filled/expired listing could resurface via a matching keyword search.
 
 **Next milestone:** M6 — deadline-based auto-archive (`js/archive.js`), splitting the list into active vs. archived and building `archive.html`.
+
+---
+
+## 2026-09-29 — M6: Deadline-based auto-archive
+
+**Prompt series:** Build M6; add more sample opportunities so the home page doesn't look bare (keeping the two existing archived examples as-is); a question about what "filled" actually requires operationally.
+
+**What was built:**
+- `js/archive.js` (new): `isExpired()` (deadline is inclusive of its whole day — an opportunity due "today" is still active through end of day; `null` never expires), `isActive()` (written as an allow-list — `status === "active"` AND not expired — so a future status value like a `pending` submission fails safe/hidden rather than failing open/shown), `archiveReason()` (filled vs. expired vs. manually archived), `partitionOpportunities()`, and `groupArchivedByReason()`.
+- `js/render.js`: added `renderArchiveGroups()` — one labeled group per reason with its own card grid, skipping empty groups, showing "Archive is empty." if nothing's archived.
+- `archive.html` (new): same header/footer as the other pages, "Archive" highlighted in nav, filled entirely by `renderArchiveGroups()`.
+- `js/main.js`: now loads data once and branches three ways — home page gets `initializeFilters()` fed only the active subset (per the M5 dependency note), the archive page gets the grouped archived subset, detail page unchanged.
+- `index.html`: added `archive.js` to the script order (before `filter.js`, since `main.js` needs it to partition before filtering).
+- `css/styles.css`: archive page group/heading layout.
+- `data/opportunities.json`: added 4 more active sample entries (Intake Volunteer, Reentry Housing Fellow, Outreach Coordinator, Records Expungement Intern) so the home page isn't sparse — 8 active + the same 2 archived (Peer Mentor/filled, Policy Fellow/expired) as before.
+- Discussed: "filled" has no automatic detection — it only updates when the owner (or outreach effort) finds out from a partner and hand-edits the status. That's an operational/relationship task inherent to the v1 owner-only model, not something this milestone's code could automate.
+- Verified: home page shows exactly the active listings (including the today-deadline one, confirming the inclusive-deadline rule), archive page groups correctly by reason.
+
+**Next milestone:** M7 — owner workflow doc (`docs/ADDING-AN-OPPORTUNITY.md`).

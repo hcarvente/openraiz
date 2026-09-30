@@ -151,6 +151,58 @@ function createApplyLink(opportunity) {
 }
 
 /**
+ * Renders the archive page: one labeled group per reason (expired, filled,
+ * manually archived), each with its own card grid; skips empty groups, and
+ * shows "Archive is empty." if there's nothing archived at all.
+ */
+function renderArchiveGroups(groups) {
+  const container = document.querySelector(".archive-groups");
+  if (!container) {
+    return;
+  }
+  container.innerHTML = "";
+
+  const sections = [
+    { key: "expired", label: "Deadline passed" },
+    { key: "filled", label: "Filled" },
+    { key: "archived", label: "Archived" },
+  ];
+
+  const hasAny = sections.some((section) => groups[section.key].length > 0);
+  if (!hasAny) {
+    const empty = document.createElement("p");
+    empty.className = "opportunity-empty-state";
+    empty.textContent = "Archive is empty.";
+    container.appendChild(empty);
+    return;
+  }
+
+  sections.forEach((section) => {
+    const list = groups[section.key];
+    if (list.length === 0) {
+      return;
+    }
+
+    const groupEl = document.createElement("div");
+    groupEl.className = "archive-group";
+
+    const heading = document.createElement("h2");
+    heading.className = "archive-group-heading";
+    heading.textContent = `${section.label} (${list.length})`;
+    groupEl.appendChild(heading);
+
+    const grid = document.createElement("div");
+    grid.className = "opportunity-grid";
+    list.forEach((opportunity) => {
+      grid.appendChild(createOpportunityCard(opportunity));
+    });
+    groupEl.appendChild(grid);
+
+    container.appendChild(groupEl);
+  });
+}
+
+/**
  * Fills the .opportunity-detail section with one opportunity's full detail,
  * or a friendly not-found message if no matching opportunity was passed in.
  */
