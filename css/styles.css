@@ -244,8 +244,14 @@ body {
   height: 100%;
 }
 
+/* Badge row: type badge and location badge share one row, type left / location right */
+.badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .opportunity-type {
-  align-self: flex-start;
   background: #E4EFE8;
   color: var(--color-primary);
   font-size: 0.7rem;
@@ -253,6 +259,30 @@ body {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   letter-spacing: 0.02em;
+}
+
+/* Location badge: static label, color-coded by location type so it reads at a
+   glance without being confused with the (differently-colored) type badge. */
+.location-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.location-badge-onsite {
+  background: #E3EEF9;
+  color: #2C5F8A;
+}
+
+.location-badge-hybrid {
+  background: #E1F3EF;
+  color: #1F7A66;
+}
+
+.location-badge-remote {
+  background: #ECEDEF;
+  color: #55606B;
 }
 
 .opportunity-title {
@@ -330,6 +360,11 @@ body {
 .opportunity-detail-facts dd {
   font-size: 0.85rem;
   margin: 0;
+}
+
+.opportunity-detail-facts dd a {
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 .opportunity-apply-button {

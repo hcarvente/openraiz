@@ -217,3 +217,17 @@ This file logs each build instruction given to Claude and a short note on what w
 - `README.md` rewrote with: the live site link; a "what this version does" section (About/Opportunities/Detail/Archive pages, the one-JSON-file data model, no backend/no self-submission yet); a "what's deliberately not built yet" section (employer self-submission, admin UI, real backend, job-seeker accounts, richer filters/types, multi-language, formal accessibility audit, org profiles, analytics, AI matching); and a "Deploying" section explaining the Pages config and that push-to-`main` is the entire deploy step.
 
 **Status:** All 11 planned milestones (M0–M10) are now complete. v1 is live.
+
+---
+
+## 2026-09-30 — New feature: location badge + organization address/Maps link
+
+**Prompt series:** Scoped two v1.1 feature ideas (organization addresses linking to Google Maps; in-person/hybrid/virtual badges on cards). Iterated on the badge through several rounds: confirmed it should be a static label (not a filter button, which would have required restructuring the card away from its current whole-card-link design to avoid nesting a button inside a link); confirmed layout (type badge left, location badge right, one row); gave each location type its own color, distinct from the type-badge palette. Added real public addresses to the sample data with a documented caveat. Renamed the Location filter's option labels to match the badge wording. Simplified the org/location text line to drop what's now redundant with the badge.
+
+**What was built:**
+- `js/render.js`: cards now show a `.badge-row` with the type badge (left) and a new static `location-badge` (right) — colored by type (`location-badge-onsite` blue, `location-badge-hybrid` teal, `location-badge-remote` slate) — labeled "In-person"/"Hybrid"/"Virtual". No click behavior; kept as a plain `<span>` since it doesn't need to be interactive, which also avoids the nested-interactive-element problem a clickable version would have created inside the existing whole-card link.
+- `location.address` (optional) added to the schema; the detail page now shows an "Address" fact that links out to Google Maps (`google.com/maps/search/?api=1&query=...`) via `addAddressFact()`, skipped entirely for remote listings or any entry without one.
+- Backfilled the 5 onsite/hybrid sample entries with real public civic addresses (city halls, etc.) in their existing cities, so the Maps links resolve to a real place — documented in `docs/ADDING-AN-OPPORTUNITY.md` as a caveat: these are real public addresses used for demo purposes, not verified addresses for the (fictional) organizations attached to them.
+- `opportunities.html`'s Location filter option labels changed to match the badge wording (Virtual/Hybrid/In-person instead of Remote/Hybrid/Onsite); underlying values unchanged.
+- `formatLocation()` simplified to return only city/state (or "" for remote) instead of repeating the location type in parentheses, since the badge now owns that; added `formatOrgLine()` to cleanly omit the separator when there's no city/state to show (remote listings now read as just the organization name, with the badge carrying the "Virtual" signal).
+- Visual exploration (badge layout and per-type colors) happened first in the same external Design-canvas mockup used throughout, before writing real code.

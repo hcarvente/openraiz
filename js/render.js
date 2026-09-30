@@ -20,16 +20,26 @@ function showLoadError() {
 }
 
 /**
- * Turns a location object into a short display string,
- * e.g. "Oakland, CA (Hybrid)", "Remote", or "Onsite".
+ * Turns a location object into a short display string — just the city/state
+ * (e.g. "Oakland, CA"), or "" for remote. The location TYPE itself (In-person/
+ * Hybrid/Virtual) is no longer repeated here since the location badge on the
+ * card/detail page already shows it; this only adds the city/state the badge
+ * doesn't include.
  */
 function formatLocation(location) {
   if (location.type === "remote") {
-    return "Remote";
+    return "";
   }
-  const place = [location.city, location.state].filter(Boolean).join(", ");
-  const typeLabel = location.type === "hybrid" ? "Hybrid" : "Onsite";
-  return place ? `${place} (${typeLabel})` : typeLabel;
+  return [location.city, location.state].filter(Boolean).join(", ");
+}
+
+/**
+ * Joins an organization name with its city/state, omitting the separator
+ * entirely when there's no city/state to show (e.g. a remote opportunity).
+ */
+function formatOrgLine(opportunity) {
+  const place = formatLocation(opportunity.location);
+  return place ? `${opportunity.organization} · ${place}` : opportunity.organization;
 }
 
 /**
@@ -59,16 +69,39 @@ function formatRelevance(relevance) {
 }
 
 /**
+ * Turns a location type into its badge label ("In-person"/"Hybrid"/"Virtual").
+ */
+function formatLocationBadgeLabel(locationType) {
+  const labels = {
+    onsite: "In-person",
+    hybrid: "Hybrid",
+    remote: "Virtual",
+  };
+  return labels[locationType] || locationType;
+}
+
+/**
  * Builds one card (wrapped in a link to its detail page) for a single opportunity.
  */
 function createOpportunityCard(opportunity) {
   const card = document.createElement("div");
   card.className = "opportunity-card";
 
+  // Badge row: opportunity type on the left, location type on the right (color-coded per type).
+  const badgeRow = document.createElement("div");
+  badgeRow.className = "badge-row";
+
   const badge = document.createElement("span");
   badge.className = "opportunity-type";
   badge.textContent = opportunity.type.toUpperCase();
-  card.appendChild(badge);
+  badgeRow.appendChild(badge);
+
+  const locationBadge = document.createElement("span");
+  locationBadge.className = `location-badge location-badge-${opportunity.location.type}`;
+  locationBadge.textContent = formatLocationBadgeLabel(opportunity.location.type);
+  badgeRow.appendChild(locationBadge);
+
+  card.appendChild(badgeRow);
 
   const title = document.createElement("h3");
   title.className = "opportunity-title";
@@ -77,7 +110,7 @@ function createOpportunityCard(opportunity) {
 
   const org = document.createElement("p");
   org.className = "opportunity-org";
-  org.textContent = `${opportunity.organization} · ${formatLocation(opportunity.location)}`;
+  org.textContent = formatOrgLine(opportunity);
   card.appendChild(org);
 
   const description = document.createElement("p");
@@ -231,6 +264,27 @@ function renderArchiveGroups(groups) {
 }
 
 /**
+ * Adds an "Address" fact row linking out to Google Maps, skipped entirely for
+ * remote opportunities (or any entry with no address on file).
+ */
+function addAddressFact(list, location) {
+  if (!location.address) {
+    return;
+  }
+  const term = document.createElement("dt");
+  term.textContent = "Address";
+  const definition = document.createElement("dd");
+  const link = document.createElement("a");
+  link.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = location.address;
+  definition.appendChild(link);
+  list.appendChild(term);
+  list.appendChild(definition);
+}
+
+/**
  * Fills the .opportunity-detail section with one opportunity's full detail,
  * or a friendly not-found message if no matching opportunity was passed in.
  */
@@ -264,7 +318,7 @@ function renderOpportunityDetail(opportunity) {
 
   const org = document.createElement("p");
   org.className = "opportunity-org";
-  org.textContent = `${opportunity.organization} · ${formatLocation(opportunity.location)}`;
+  org.textContent = formatOrgLine(opportunity);
   container.appendChild(org);
 
   const description = document.createElement("p");
@@ -275,6 +329,7 @@ function renderOpportunityDetail(opportunity) {
   const facts = document.createElement("dl");
   facts.className = "opportunity-detail-facts";
   addDetailFact(facts, "Compensation", opportunity.compensation);
+  addAddressFact(facts, opportunity.location);
   addDetailFact(facts, "Deadline", formatDeadline(opportunity.deadline));
   addDetailFact(facts, "Lived experience", formatRelevance(opportunity.livedExperienceRelevance));
   container.appendChild(facts);

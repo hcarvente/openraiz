@@ -24,7 +24,7 @@ Opportunities live as one JSON array in [`data/opportunities.json`](../data/oppo
   "type": "job",
   "description": "",
   "livedExperienceRelevance": "welcomed",
-  "location": { "type": "remote", "city": null, "state": null },
+  "location": { "type": "remote", "city": null, "state": null, "address": null },
   "isPaid": true,
   "compensation": "",
   "datePosted": "2026-01-01",
@@ -43,7 +43,7 @@ Opportunities live as one JSON array in [`data/opportunities.json`](../data/oppo
 - **`type`** — one of `job`, `fellowship`, `internship`, `volunteer`. (Nothing else yet — see the plan file for why this list is deliberately short for v1.)
 - **`description`** — one or two plain-language sentences. Avoid jargon; aim for something a first-time applicant would understand without a glossary.
 - **`livedExperienceRelevance`** — one of `required`, `preferred`, `welcomed`, `relevant`. This describes the *opportunity's* fit, never the applicant — it's how a listing signals relevance without asking anyone to disclose anything about themselves. Word the surrounding `description` the same way: lived experience is framed as expertise the role values, not a deficit being accommodated. Avoid labeling who the role is "for" by system involvement (no "formerly incarcerated," "at-risk," "second-chance," etc.) anywhere in the listing text.
-- **`location`** — `type` is `remote`, `hybrid`, or `onsite`. For `remote`, leave `city`/`state` as `null`. For `hybrid`/`onsite`, fill both in.
+- **`location`** — `type` is `remote`, `hybrid`, or `onsite`. For `remote`, leave `city`/`state`/`address` as `null`. For `hybrid`/`onsite`, fill in `city`/`state`, and optionally `address` — a real street address, shown on the detail page as a link that opens it in Google Maps. Leave `address` as `null` if you don't have a confirmed physical address yet.
 - **`isPaid`** — `true` or `false`. This is what the Pay filter actually checks — keep it consistent with what `compensation` says (don't set `isPaid: true` next to `compensation: "Unpaid"`).
 - **`compensation`** — free-text, for display only, e.g. `"Paid, $22/hr"`, `"Paid, $52,000/yr"`, `"Unpaid"`, `"Stipend, $500/month"`.
 - **`datePosted`** — `YYYY-MM-DD`, the day it went live on the site.
@@ -52,6 +52,10 @@ Opportunities live as one JSON array in [`data/opportunities.json`](../data/oppo
 - **`applyMethod`** — `type` is `url` or `email`. For `url`, `value` is the link the applicant is sent to (the organization's own application process — this site never collects applications itself). For `email`, `value` is the address a "Apply via email" link should open a draft to.
 - **`source`** — leave as `"owner-added"` for now. (`"employer-submitted"` is reserved for a future submission workflow — don't use it yet.)
 - **`lastUpdated`** — `YYYY-MM-DD`, bump this whenever you edit an existing entry.
+
+## Note on the current sample data
+
+The 5 hybrid/onsite entries in `data/opportunities.json` right now use real, public civic addresses (city halls and similar public buildings) in their listed cities, purely so the Google Maps links in the detail pages resolve to a real place during development. The organizations attached to them are fictional placeholder names — these are not verified or actual addresses for any real employer, and should be replaced with each organization's real, confirmed address once real listings are added.
 
 ## When something changes
 
