@@ -11,3 +11,17 @@ This file logs each build instruction given to Claude and a short note on what w
 **What was built:** Created the project folder and subfolders (`css/`, `js/`, `data/`, `docs/`, `assets/`). Started this `PROMPTS.md` log. Full plan (milestones, JSON schema, brand/language guardrails) is recorded separately for reference.
 
 **Next milestone:** M1 — static page shell (`index.html`) and placeholder branding in `css/styles.css`.
+
+---
+
+## 2026-09-29 — M1: Static page shell + placeholder branding
+
+**Prompt series:** Build the M1 shell; add comments explaining every code chunk (standing instruction for this project); explore a visual concept for the header/hero via a design mockup (centered logo lockup, feather icon, pill nav, gradient accent underline); approve that look and bring it into the real site.
+
+**What was built:**
+- `index.html`: page skeleton with header (centered feather-icon + "OpenRaíz" wordmark, centered pill nav with an active-state indicator, small gradient accent underline), a centered hero section, empty placeholder sections for filters (M5) and the opportunity grid (M3), and a footer crediting "Incubated by Alianza for Opportunity."
+- `css/styles.css`: placeholder brand variables (green/orange/cream palette, system fonts), mobile-first base layout, the centered header/nav/hero styling described above, and a responsive 1→2→3 column grid for the future opportunity cards.
+- Every section of both files is commented per the project's standing comment rule.
+- A separate visual-concept mockup (desktop + phone, including a scroll-triggered fade-in effect for cards) was explored outside the repo to settle on this header/hero direction before writing real code; the scroll-fade behavior itself is deferred to M3, when real cards exist to animate.
+
+**Next milestone:** M2 — sample data (`data/opportunities.json`) covering each opportunity type and the archive-logic edge cases (past deadline, no deadline, already filled, deadline today).

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic document metadata -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenRaíz</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Site header: centered logo lockup (feather mark + wordmark) with a centered pill nav below it, shared across all pages -->
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <!-- Feather mark: represents lightness/possibility alongside the "rooted" wordmark -->
+      <svg class="logo-mark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+        <line x1="16" y1="8" x2="2" y2="22"></line>
+        <line x1="17.5" y1="15" x2="9" y2="15"></line>
+      </svg>
+      OpenRaíz
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html" class="is-active">Opportunities</a>
+      <a href="archive.html">Archive</a>
+      <a href="about.html">About</a>
+    </nav>
+    <!-- Small gradient accent underline beneath the nav -->
+    <div class="header-accent" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <!-- Hero: mission statement, centered to match the header above, always visible above the listings -->
+    <section class="hero">
+      <h1>Opportunities rooted in lived experience.</h1>
+      <p>Jobs, fellowships, internships, and volunteer roles from organizations that value what you bring.</p>
+    </section>
+
+    <!-- Filter controls (type, location, paid/unpaid, keyword search) get built in M5 -->
+    <section class="filters" aria-label="Filter opportunities">
+      <!-- Filter controls arrive in M5 -->
+    </section>
+
+    <!-- Opportunity cards are generated dynamically from data/opportunities.json in M3 -->
+    <section class="opportunity-grid" aria-label="Open opportunities">
+      <!-- Opportunity cards render here in M3 -->
+    </section>
+  </main>
+
+  <!-- Site footer: brand/attribution line, shared across all pages -->
+  <footer class="site-footer">
+    <p>OpenRaíz — Incubated by Alianza for Opportunity</p>
+  </footer>
+</body>
+</html>
