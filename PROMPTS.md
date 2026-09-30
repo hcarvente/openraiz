@@ -172,3 +172,18 @@ This file logs each build instruction given to Claude and a short note on what w
 - Responsive layout across all four pages was reviewed and found already handled by the mobile-first approach built up through earlier milestones — no changes needed there.
 
 **Next milestone:** M10 — deploy to GitHub Pages (create the repo's Pages config, resolve the `/docs` naming collision, verify the live JSON fetch).
+
+---
+
+## 2026-09-30 — New logo mark: sprout replaces feather, favicon + social card
+
+**Prompt series:** A design exploration asking whether the feather icon felt "off brand"; agreed it did (a feather symbolizes flight/lightness, while "Raíz" means root — the two ideas don't reinforce each other, and the feather also reads as a generic startup-logo cliché). Explored several root-themed, abstract, and non-root icon concepts, in both side-by-side and stacked lockup styles, before settling on a sprout mark. Then: "create this logo, favicon, create the images and update all the files."
+
+**What was built:**
+- Replaced the feather SVG with a sprout mark (stem + leaf curves above a ground line, three root tendrils below) in the header of all four pages (`index.html`, `opportunities.html`, `opportunity.html`, `archive.html`) and in `assets/favicon.svg`.
+- Installed `cairosvg` (plus its system dependency, the Homebrew `cairo` library) to rasterize the real vector icon into PNGs, rather than hand-approximating it: `assets/favicon-32.png` and `assets/favicon-180.png` (apple-touch-icon), linked as fallbacks alongside the existing SVG favicon for browsers/contexts that don't support SVG favicons.
+- Built `assets/og-image.png` (1200×630): the sprout icon plus the "OpenRaíz" wordmark and tagline, composited with Pillow using a system serif font (Georgia Bold) as a stand-in for Fraunces, which isn't installed locally for rasterization — worth revisiting once the site is deployed and the real font can be captured from a live render instead.
+- Wired Open Graph (`og:title`, `og:description`, `og:image`, `og:type`) and `twitter:card` meta tags into all four pages, each with page-specific title/description text; `og:url` deliberately left out until M10 gives the site a real deployed domain.
+- All the icon/root/abstract/non-root concept exploration happened in the same external Design-canvas mockup used throughout this project — nothing in that canvas is part of the delivered site.
+
+**Next milestone:** M10 — deploy to GitHub Pages (create the repo's Pages config, resolve the `/docs` naming collision, verify the live JSON fetch, and once live, consider recapturing the OG image with the real Fraunces font).
