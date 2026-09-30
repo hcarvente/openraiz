@@ -118,4 +118,4 @@ This file logs each build instruction given to Claude and a short note on what w
 **What was built:**
 - `docs/ADDING-AN-OPPORTUNITY.md`: step-by-step instructions for adding a listing (copy template, fill fields, validate with `python3 -m json.tool`, commit), a filled-in field template matching the current schema (including `isPaid`), field-by-field guidance — notably on wording `livedExperienceRelevance` and `description` without deficit framing or system-involvement labels — and a short section on what to do when a listing gets filled, expires, or needs pulling for another reason.
 
-**Next milestone:** M8 — polish pass (accessibility, empty-state messaging already mostly done in M5/M6, invalid-id handling already done in M4, favicon, responsive check).
+**Next milestone:** M8 — About page (`about.html`) + Alianza relationship framing ("Incubated by Alianza for Opportunity," not "Alianza's OpenRaiz").
