@@ -4,7 +4,7 @@
   --color-text: #2B2B2B;    /* default text */
   --color-primary: #2E6F4E; /* logo, headings, links */
   --color-accent: #E4622B;  /* reserved for future CTAs/highlights */
-  --color-muted: #8A8378;   /* secondary/supporting text */
+  --color-muted: #6B6459;   /* secondary/supporting text — 5.46:1 contrast on --color-bg, meets WCAG AA */
   --color-nav-bg: #F1ECE1; /* pill background behind the nav links */
   --font-heading: system-ui, sans-serif;
   --font-body: system-ui, sans-serif;
@@ -100,7 +100,7 @@ body {
 .site-nav a {
   padding: 0.55rem 1.2rem;
   border-radius: 999px;
-  color: #6B6459;
+  color: var(--color-muted);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -347,6 +347,15 @@ body {
 .opportunity-detail-not-found {
   color: var(--color-muted);
   font-size: 0.95rem;
+}
+
+/* Archive page's top-level heading (was missing — page previously jumped straight to <h2> group headings) */
+.archive-page-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  text-align: center;
+  margin: 2rem 1.25rem 0;
 }
 
 /* Archive page: one labeled group per reason, each with its own card grid */

@@ -214,12 +214,15 @@ function renderOpportunityDetail(opportunity) {
   container.innerHTML = "";
 
   if (!opportunity) {
+    document.title = "Opportunity not found — OpenRaíz";
     const message = document.createElement("p");
     message.className = "opportunity-detail-not-found";
     message.textContent = "We couldn't find that opportunity. It may have been removed, or the link may be incorrect.";
     container.appendChild(message);
     return;
   }
+
+  document.title = `${opportunity.title} — OpenRaíz`;
 
   const badge = document.createElement("span");
   badge.className = "opportunity-type";

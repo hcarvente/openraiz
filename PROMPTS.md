@@ -118,7 +118,7 @@ This file logs each build instruction given to Claude and a short note on what w
 **What was built:**
 - `docs/ADDING-AN-OPPORTUNITY.md`: step-by-step instructions for adding a listing (copy template, fill fields, validate with `python3 -m json.tool`, commit), a filled-in field template matching the current schema (including `isPaid`), field-by-field guidance — notably on wording `livedExperienceRelevance` and `description` without deficit framing or system-involvement labels — and a short section on what to do when a listing gets filled, expires, or needs pulling for another reason.
 
-**Next milestone:** M8 — About page (`about.html`) + Alianza relationship framing ("Incubated by Alianza for Opportunity," not "Alianza's OpenRaiz").
+**Next up:** the About page (`about.html`) + Alianza relationship framing ("Incubated by Alianza for Opportunity," not "Alianza's OpenRaiz") — see the entries below (logged descriptively rather than as a numbered milestone, per a later change to this log's cadence).
 
 ---
 
@@ -156,3 +156,19 @@ This file logs each build instruction given to Claude and a short note on what w
 - Implemented the fixed-height hero band approach, mobile-only: below a 699px breakpoint, the whole-page background is replaced with a 220px-tall `<img>` band using `object-fit: cover` and a tuned `object-position` (`28% 42%`) that keeps the person framed consistently as the viewport narrows. Desktop keeps the original whole-page background unchanged.
 
 **Next milestone:** M9 — polish pass (accessibility, favicon, responsive check).
+
+---
+
+## 2026-09-29 — M9: Polish pass
+
+**Prompt:** Build M9 — accessibility check, favicon, meta tags, responsive review.
+
+**What was built:**
+- Found and fixed a real contrast issue during the accessibility check: `--color-muted` (used for org/location lines, filter labels, nav links, footer) only had a 3.5:1 contrast ratio against the page background — below the WCAG AA 4.5:1 requirement for normal text. Darkened it to `#6B6459` (5.46:1), and pointed `.site-nav a`'s previously-hardcoded copy of that same color at the shared variable instead, so there's one source of truth.
+- Added `assets/favicon.svg` (the existing feather mark, reused rather than a new asset) and linked it on all four pages, alongside a `<meta name="description">` tuned to each page's content.
+- Added `aria-current="page"` next to the visual `.is-active` class on each page's real current-page nav link (not on `opportunity.html`'s "Opportunities" link, since that page's URL doesn't literally match `opportunities.html` — the visual highlight there is a deliberate "belongs to this section" choice, not a same-page indicator).
+- Found and fixed a heading-hierarchy gap: `archive.html` had no `<h1>`, jumping straight to the `<h2>` group headings — added a page-level "Archive" heading.
+- `opportunity.html`'s `<title>` was static ("OpenRaíz") regardless of which listing was open; `renderOpportunityDetail()` now sets it to the opportunity's own name (or "Opportunity not found") once rendered, so the browser tab and screen-reader announcement are both useful.
+- Responsive layout across all four pages was reviewed and found already handled by the mobile-first approach built up through earlier milestones — no changes needed there.
+
+**Next milestone:** M10 — deploy to GitHub Pages (create the repo's Pages config, resolve the `/docs` naming collision, verify the live JSON fetch).

@@ -4,6 +4,8 @@
   <!-- Basic document metadata -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Opportunities that have closed, been filled, or been archived on OpenRaíz." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <title>OpenRaíz — Archive</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -21,12 +23,15 @@
     <nav class="site-nav" aria-label="Primary">
       <a href="index.html">About</a>
       <a href="opportunities.html">Opportunities</a>
-      <a href="archive.html" class="is-active">Archive</a>
+      <a href="archive.html" class="is-active" aria-current="page">Archive</a>
     </nav>
     <div class="header-accent" aria-hidden="true"></div>
   </header>
 
   <main>
+    <!-- Page heading: was missing before, which left the page jumping straight to <h2> group headings with no <h1> above them -->
+    <h1 class="archive-page-title">Archive</h1>
+
     <!-- Archive: entirely filled in by js/render.js's renderArchiveGroups(), grouped by why each listing is archived -->
     <section class="archive-groups" aria-label="Archived opportunities">
       <!-- Archive groups render here -->
